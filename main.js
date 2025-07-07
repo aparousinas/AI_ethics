@@ -244,10 +244,31 @@ const quizData = [
 ];
 
 
+
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 let userName = '';
+
+function showHomePage() {
+  document.querySelector('#app').innerHTML = `
+    <div class="quiz-container">
+      <div style="font-size:2em;font-weight:700;color:#7c3aed;margin-bottom:0.5em;">AI ethics</div>
+      <h2 style="margin-bottom:1.2em;">Ηθική της Τεχνητής Νοημοσύνης</h2>
+      <div style="display:flex;flex-direction:column;gap:1em;align-items:center;">
+        <button id="start-quiz-btn" class="option-btn" style="width:220px;">Quiz</button>
+        <button id="start-surprise-btn" class="option-btn" style="width:220px;">Παιχνίδι Έκπληξη</button>
+        <button id="show-summary-btn" class="option-btn" style="width:220px;">Περίληψη</button>
+      </div>
+      <div style="margin-top:2.5em;font-size:0.92em;color:#888;text-align:center;">
+        Παρουσίνας Αλέξανδρος ΠΕ86
+      </div>
+    </div>
+  `;
+  document.getElementById('start-quiz-btn').onclick = showNameForm;
+  document.getElementById('start-surprise-btn').onclick = showSurpriseGame;
+  document.getElementById('show-summary-btn').onclick = showSummary;
+}
 
 function showNameForm() {
   document.querySelector('#app').innerHTML = `
@@ -259,6 +280,7 @@ function showNameForm() {
         <input type="text" id="username" name="username" required style="margin:1em 0;padding:0.5em 1em;border-radius:8px;border:1px solid #b3b3b3;font-size:1em;max-width:90%;"><br>
         <button type="submit" class="option-btn" style="margin-top:1em;">Ξεκίνα το Quiz</button>
       </form>
+      <button id="back-home-btn" class="option-btn" style="margin-top:1.5em;background:#e0e7ff;color:#3730a3;">Αρχική</button>
       <div style="margin-top:2.5em;font-size:0.92em;color:#888;text-align:center;">
         Παρουσίνας Αλέξανδρος ΠΕ86
       </div>
@@ -276,6 +298,7 @@ function showNameForm() {
     score = 0;
     showQuestion();
   };
+  document.getElementById('back-home-btn').onclick = showHomePage;
 }
 
 function showQuestion() {
@@ -338,6 +361,7 @@ function showCertificate() {
       </div>
       <button id="restart-btn">Ξεκίνα ξανά</button>
       <button id="surprise-btn">Παιχνίδι Έκπληξη!</button>
+      <button id="back-home-btn" class="option-btn" style="margin-top:1.5em;background:#e0e7ff;color:#3730a3;">Αρχική</button>
     </div>
   `;
   document.getElementById('restart-btn').onclick = () => {
@@ -345,17 +369,50 @@ function showCertificate() {
     showNameForm();
   };
   document.getElementById('surprise-btn').onclick = showSurpriseGame;
+  document.getElementById('back-home-btn').onclick = showHomePage;
 }
 
 function showSurpriseGame() {
   document.querySelector('#app').innerHTML = `
     <div class="quiz-container">
       <h2>🎲 Παιχνίδι Έκπληξη: AI Memory!</h2>
-      <p>Βρες τα ζευγάρια με θέμα την ηθική της ΤΝ. Κάνε refresh για να επιστρέψεις στο quiz.</p>
+      <p>Βρες τα ζευγάρια με θέμα την ηθική της ΤΝ.</p>
       <div id="memory-game"></div>
+      <button id="back-home-btn" class="option-btn" style="margin-top:1.5em;background:#e0e7ff;color:#3730a3;">Αρχική</button>
     </div>
   `;
+  document.getElementById('back-home-btn').onclick = showHomePage;
   startMemoryGame();
+}
+
+function showSummary() {
+  document.querySelector('#app').innerHTML = `
+    <div class="quiz-container">
+      <h2>Περίληψη: Ηθική της Τεχνητής Νοημοσύνης</h2>
+      <div style="text-align:left;font-size:1.08em;margin:1.2em 0 2em 0;line-height:1.7;color:#333;background:#f3f4f6;padding:1.2em 1em;border-radius:12px;">
+        <strong>Κύριες Έννοιες:</strong><br><br>
+        <ul style="margin-left:1.2em;">
+          <li><strong>Διαφάνεια:</strong> Οι αποφάσεις της ΤΝ πρέπει να εξηγούνται και να είναι κατανοητές στους χρήστες.</li>
+          <li><strong>Δικαιοσύνη:</strong> Η ΤΝ πρέπει να αποφεύγει διακρίσεις και να διασφαλίζει ίση μεταχείριση.</li>
+          <li><strong>Ιδιωτικότητα:</strong> Η προστασία των προσωπικών δεδομένων είναι θεμελιώδης για την εμπιστοσύνη.</li>
+          <li><strong>Ασφάλεια:</strong> Τα συστήματα ΤΝ πρέπει να προστατεύουν από κακόβουλες χρήσεις και ατυχήματα.</li>
+          <li><strong>Υπευθυνότητα &amp; Λογοδοσία:</strong> Οι άνθρωποι που σχεδιάζουν και χρησιμοποιούν ΤΝ φέρουν την ευθύνη για τις αποφάσεις της.</li>
+          <li><strong>Ανθρώπινη Επίβλεψη:</strong> Η ανθρώπινη παρέμβαση είναι απαραίτητη για την αποτροπή λαθών και ανήθικων χρήσεων.</li>
+          <li><strong>Δίκαιη Πρόσβαση:</strong> Όλοι πρέπει να έχουν ίσες ευκαιρίες να επωφεληθούν από την ΤΝ.</li>
+        </ul>
+        <br>
+        <strong>Σημαντικές Πληροφορίες:</strong><br>
+        <ul style="margin-left:1.2em;">
+          <li>Η ΤΝ πρέπει να σχεδιάζεται με σεβασμό στα ανθρώπινα δικαιώματα.</li>
+          <li>Η ενημέρωση των χρηστών για τη χρήση της ΤΝ είναι βασική για τη διαφάνεια και την υπευθυνότητα.</li>
+          <li>Η επεξήγηση των αποφάσεων της ΤΝ ενισχύει την εμπιστοσύνη και την κατανόηση.</li>
+          <li>Η υπερβολική αυτοματοποίηση μπορεί να έχει κοινωνικές και ηθικές συνέπειες (π.χ. απώλεια θέσεων εργασίας).</li>
+        </ul>
+      </div>
+      <button id="back-home-btn" class="option-btn" style="margin-top:1.5em;background:#e0e7ff;color:#3730a3;">Αρχική</button>
+    </div>
+  `;
+  document.getElementById('back-home-btn').onclick = showHomePage;
 }
 
 // Απλό memory game (ζευγάρια)
@@ -409,4 +466,4 @@ function startMemoryGame() {
 }
 
 // Εκκίνηση
-showNameForm();
+showHomePage();
